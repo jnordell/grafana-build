@@ -1,12 +1,10 @@
-FROM centos:centos7
-
-MAINTAINER Eldad Marciano "mrsiano@gmail.com"
+FROM registry.access.redhat.com/rhel:7.5
 
 ENV GOPATH /root/go
 
 RUN curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
 
-RUN yum install -y --nogpgcheck \
+RUN yum install -y --nogpgcheck --setopt=tsflags=nodocs --disablerepo="*" --enablerepo="rhel-7-server-rpms" --enablerepo="rhel-7-server-extras-rpms" \
     initscripts \
     curl \
     tar \
