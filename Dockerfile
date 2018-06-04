@@ -4,12 +4,12 @@ ENV GOPATH /root/go
 
 RUN curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
 
-RUN yum install -y --nogpgcheck --setopt=tsflags=nodocs --disablerepo="*" --enablerepo="rhel-7-server-rpms" --enablerepo="rhel-7-server-extras-rpms" --enablerepo="rhel-server-rhscl-7-rpms" \
+RUN yum install -y --nogpgcheck --setopt=tsflags=nodocs --disablerepo="*" --enablerepo="rhel-7-server-rpms" --enablerepo="rhel-7-server-extras-rpms" --enablerepo="rhel-server-rhscl-7-rpms" --enablerepo="rhel-7-server-optional-rpms" \
     initscripts \
     gcc \
     libc6-dev \
     git \
-    go \
+    golang \
     nodejs \
     bzip2 ;
 
