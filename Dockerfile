@@ -7,7 +7,7 @@ RUN curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
 RUN yum install -y --nogpgcheck --setopt=tsflags=nodocs --disablerepo="*" --enablerepo="rhel-7-server-rpms" --enablerepo="rhel-7-server-extras-rpms" --enablerepo="rhel-server-rhscl-7-rpms" --enablerepo="rhel-7-server-optional-rpms" \
     initscripts \
     gcc \
-    libc6-dev \
+    glibc-devel \
     git \
     golang \
     rh-nodejs8 \
@@ -25,6 +25,7 @@ RUN mkdir -p $GOPATH/src/github.com/grafana && \
 RUN cd $GOPATH/src/github.com/grafana/grafana && \
     go run build.go setup && \
     go run build.go build && \
+    scl enable rh-nodejs8 bash \
     npm install -g yarn && \
     yarn install --pure-lockfile && \
     npm run build;
