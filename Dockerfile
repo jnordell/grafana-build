@@ -10,7 +10,10 @@ RUN yum install -y --nogpgcheck --setopt=tsflags=nodocs --disablerepo="*" --enab
     libc6-dev \
     git \
     golang \
-    nodejs \
+    rh-nodejs8 \
+    rh-nodejs8-npm \
+    rh-nodejs8-nodejs-nodemon \
+    nss_wrapper \
     bzip2 ;
 
 RUN mkdir -p $GOPATH/src/github.com/grafana && \
