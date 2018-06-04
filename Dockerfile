@@ -2,6 +2,12 @@ FROM registry.access.redhat.com/rhel:7.5
 
 ENV GOPATH /root/go
 
+ENV NODEJS_VERSION=8 \
+    NPM_RUN=start \
+    NAME=nodejs \
+    NPM_CONFIG_PREFIX=$HOME/.npm-global \
+    PATH=$HOME/node_modules/.bin/:$HOME/.npm-global/bin/:$PATH
+
 RUN curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
 
 RUN yum install -y --nogpgcheck --setopt=tsflags=nodocs --disablerepo="*" --enablerepo="rhel-7-server-rpms" --enablerepo="rhel-7-server-extras-rpms" --enablerepo="rhel-server-rhscl-7-rpms" --enablerepo="rhel-7-server-optional-rpms" \
