@@ -25,7 +25,7 @@ RUN mkdir -p $GOPATH/src/github.com/grafana && \
 RUN cd $GOPATH/src/github.com/grafana/grafana && \
     go run build.go setup && \
     go run build.go build && \
-    scl enable rh-nodejs8 bash \
+    source scl_source rh-nodejs8 \
     npm install -g yarn && \
     yarn install --pure-lockfile && \
     npm run build;
