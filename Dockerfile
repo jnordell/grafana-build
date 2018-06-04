@@ -4,17 +4,14 @@ ENV GOPATH /root/go
 
 RUN curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
 
-RUN yum install -y --nogpgcheck --setopt=tsflags=nodocs --disablerepo="*" --enablerepo="rhel-7-server-rpms" --enablerepo="rhel-7-server-extras-rpms" \
+RUN yum install -y --nogpgcheck --setopt=tsflags=nodocs --disablerepo="*" --enablerepo="rhel-7-server-rpms" --enablerepo="rhel-7-server-extras-rpms" --enablerepo="rhel-server-rhscl-7-rpms" \
     initscripts \
-    curl \
-    tar \
     gcc \
     libc6-dev \
     git \
     go \
     nodejs \
-    bzip2 \
-    bzip2-libs;
+    bzip2 ;
 
 RUN mkdir -p $GOPATH/src/github.com/grafana && \
     cd $GOPATH/src/github.com/grafana && pwd && \
