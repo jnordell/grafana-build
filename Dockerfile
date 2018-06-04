@@ -28,10 +28,11 @@ RUN mkdir -p $GOPATH/src/github.com/grafana && \
     cd grafana && pwd && git branch -a && \
     git checkout generic_oauth;
 
+
 RUN cd $GOPATH/src/github.com/grafana/grafana && \
     go run build.go setup && \
     go run build.go build && \
-    source scl_source enable rh-nodejs8 \
+    source scl_source enable rh-nodejs8 && \
     npm install -g yarn && \
     yarn install --pure-lockfile && \
     npm run build;
