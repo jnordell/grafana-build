@@ -2,7 +2,7 @@ FROM registry.access.redhat.com/rhel:7.5
 
 ENV GOPATH /root/go
 
-ENV NODEJS_VERSION=8 \
+ENV NODEJS_VERSION=6 \
     NPM_RUN=start \
     NAME=nodejs \
     NPM_CONFIG_PREFIX=$HOME/.npm-global \
@@ -14,9 +14,7 @@ RUN yum install -y --nogpgcheck --setopt=tsflags=nodocs --disablerepo="*" --enab
     glibc-devel \
     git \
     golang \
-    rh-nodejs8 \
-    rh-nodejs8-npm \
-    rh-nodejs8-nodejs-nodemon \
+    rh-nodejs6* \
     nss_wrapper \
     bzip2 ;
 
@@ -30,7 +28,7 @@ RUN mkdir -p $GOPATH/src/github.com/grafana && \
 RUN cd $GOPATH/src/github.com/grafana/grafana && \
     go run build.go setup && \
     go run build.go build && \
-    source scl_source enable rh-nodejs8 && \
+    source scl_source enable rh-nodejs6 && \
     npm install -g yarn && \
     yarn install --pure-lockfile && \
     npm run build;

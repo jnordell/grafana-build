@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: BuildConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  labels:
+    app: openshift-grafana
+  name: openshift-grafana
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: openshift-grafana:latest
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    git:
+      ref: master
+      uri: https://github.com/jnordell/grafana-build.git
+    type: Git
+  strategy:
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: rhel:7.5
+    type: Docker
+  successfulBuildsHistoryLimit: 5
+  triggers:
+  - imageChange:
+      lastTriggeredImageID: registry.access.redhat.com/rhel@sha256:26c80cd5c26a958c95dbb0b46702b055d23fa023b71065b8a8143b6738306063
+    type: ImageChange
+  - type: ConfigChange
+  - github:
+      secret: uv-pCVabAQxoKCGXK8Q9
+    type: GitHub
+  - generic:
+      secret: U1LSUWcoUfyWNWv07FQe
+    type: Generic
