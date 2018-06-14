@@ -1,6 +1,6 @@
 FROM registry.access.redhat.com/rhel:7.5
 
-ENV GOPATH /root/go \
+ENV GOPATH=/root/go \
     HOME=/root/go/src/github.com/grafana/grafana
 
 ENV NODEJS_VERSION=6 \
