@@ -1,14 +1,14 @@
 FROM registry.access.redhat.com/rhel:7.5
 
-ENV GOPATH=/root/go \
-    HOME=/root/go/src/github.com/grafana/grafana
+ENV GOPATH=/opt/app-root/go \
+    HOME=/opt/app-root/go/src/github.com/grafana/grafana
 
 ENV NODEJS_VERSION=6 \
     NPM_RUN=start \
     NAME=nodejs \
     NPM_CONFIG_PREFIX=$HOME/.npm-global \
     PATH=$HOME/node_modules/.bin/:$HOME/.npm-global/bin/:$PATH \
-    APP_ROOT=/root/go/src/github.com/grafana/grafana
+    APP_ROOT=/opt/app-root
     
 RUN yum install -y --nogpgcheck --setopt=tsflags=nodocs --disablerepo="*" --enablerepo="rhel-7-server-rpms" --enablerepo="rhel-7-server-extras-rpms" --enablerepo="rhel-server-rhscl-7-rpms" --enablerepo="rhel-7-server-optional-rpms" \
     initscripts \
@@ -26,10 +26,7 @@ RUN mkdir -p $GOPATH/src/github.com/grafana && \
     cd grafana && pwd && git branch -a && \
     git checkout generic_oauth;
 
-
 RUN cd $GOPATH/src/github.com/grafana/grafana && \
-    pwd && \
-    ls && \
     go run build.go setup && \
     go run build.go build && \
     source scl_source enable rh-nodejs6 && \
@@ -37,8 +34,10 @@ RUN cd $GOPATH/src/github.com/grafana/grafana && \
     yarn install --pure-lockfile && \
     npm run build;
 
+COPY files/scl_enable ${APP_ROOT}/etc/
+
 ENV BASH_ENV=${APP_ROOT}/etc/scl_enable \
     ENV=${APP_ROOT}/etc/scl_enable \
     PROMPT_COMMAND=". ${APP_ROOT}/etc/scl_enable"
 
-WORKDIR /root/go/src/github.com/grafana/grafana
+WORKDIR /opt/app-root/go/src/github.com/grafana/grafana
