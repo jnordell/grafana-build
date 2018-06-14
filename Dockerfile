@@ -10,10 +10,6 @@ ENV NODEJS_VERSION=6 \
     PATH=$HOME/node_modules/.bin/:$HOME/.npm-global/bin/:$PATH \
     APP_ROOT=/root/go/src/github.com/grafana/grafana
     
-ENV BASH_ENV=${APP_ROOT}/etc/scl_enable \
-    ENV=${APP_ROOT}/etc/scl_enable \
-    PROMPT_COMMAND=". ${APP_ROOT}/etc/scl_enable"
-
 RUN yum install -y --nogpgcheck --setopt=tsflags=nodocs --disablerepo="*" --enablerepo="rhel-7-server-rpms" --enablerepo="rhel-7-server-extras-rpms" --enablerepo="rhel-server-rhscl-7-rpms" --enablerepo="rhel-7-server-optional-rpms" \
     initscripts \
     gcc \
@@ -32,11 +28,17 @@ RUN mkdir -p $GOPATH/src/github.com/grafana && \
 
 
 RUN cd $GOPATH/src/github.com/grafana/grafana && \
+    pwd && \
+    ls && \
     go run build.go setup && \
     go run build.go build && \
     source scl_source enable rh-nodejs6 && \
     npm install -g yarn && \
     yarn install --pure-lockfile && \
     npm run build;
+
+ENV BASH_ENV=${APP_ROOT}/etc/scl_enable \
+    ENV=${APP_ROOT}/etc/scl_enable \
+    PROMPT_COMMAND=". ${APP_ROOT}/etc/scl_enable"
 
 WORKDIR /root/go/src/github.com/grafana/grafana
