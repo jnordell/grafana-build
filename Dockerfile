@@ -22,9 +22,7 @@ RUN yum install -y --nogpgcheck --setopt=tsflags=nodocs --disablerepo="*" --enab
 
 RUN mkdir -p $GOPATH/src/github.com/grafana && \
     cd $GOPATH/src/github.com/grafana && pwd && \
-    git clone https://github.com/mrsiano/grafana.git && \
-    cd grafana && pwd && git branch -a && \
-    git checkout generic_oauth;
+    git clone https://github.com/grafana/grafana.git ;
 
 RUN cd $GOPATH/src/github.com/grafana/grafana && \
     go run build.go setup && \
