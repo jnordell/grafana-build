@@ -3,7 +3,7 @@ FROM registry.access.redhat.com/rhel:7.5
 ENV GOPATH=/opt/app-root/go \
     HOME=/opt/app-root/go/src/github.com/grafana/grafana
 
-ENV NODEJS_VERSION=6 \
+ENV NODEJS_VERSION=8 \
     NPM_RUN=start \
     NAME=nodejs \
     NPM_CONFIG_PREFIX=$HOME/.npm-global \
@@ -16,7 +16,7 @@ RUN yum install -y --nogpgcheck --setopt=tsflags=nodocs --disablerepo="*" --enab
     glibc-devel \
     git \
     golang \
-    rh-nodejs6* \
+    rh-nodejs8* \
     nss_wrapper \
     bzip2 ;
 
